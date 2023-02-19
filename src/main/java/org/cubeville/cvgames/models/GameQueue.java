@@ -132,7 +132,11 @@ public class GameQueue implements PlayerContainer {
             playerTeams.get(-1).add(p);
             Set<Player> players = getPlayerSet();
             if (players.size() == getMinPlayers()) {
-                startCountdown(20);
+                int countdownLength = 20;
+                if(arena.getVariable("countdown-length") != null) {
+                    countdownLength = (int) arena.getVariable("countdown-length");
+                } // Should we check the type of the variable too to avoid cast exceptions?
+                startCountdown(countdownLength);
             }
             final int SPEED_COUNTDOWN = 6;
             if (players.size() == getMaxPlayers() && counter > SPEED_COUNTDOWN) {
